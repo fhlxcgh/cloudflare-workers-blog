@@ -1,0 +1,20 @@
+name: SSH Test
+
+on:
+  workflow_dispatch:   # 手动触发，不用 push
+
+jobs:
+  test-ssh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test SSH Connection
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ vars.SERVER_IP }}
+          username: ${{ vars.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          port: 22
+          script: |
+            echo "✅ SSH连接成功！"
+            echo "当前用户: $(whoami)"
+            echo "主机名: $(hostname)"
